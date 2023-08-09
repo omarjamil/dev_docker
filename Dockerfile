@@ -5,7 +5,7 @@ ENV TZ=Europe/London
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Setup user
-ARG USERNAME=oj
+ARG USERNAME=omar.jamil
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
@@ -35,7 +35,7 @@ RUN apt-get update \
 #     && apt-get clean
 
 # Copy environment.yml to a temp location so we update the environment.
-COPY docker/environment.yml /tmp/conda-tmp/
+COPY environment.yml /tmp/conda-tmp/
 RUN mamba env create -n devcontainer -f /tmp/conda-tmp/environment.yml \
     && rm -rf /tmp/conda-tmp \
     && mamba clean -afy

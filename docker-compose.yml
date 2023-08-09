@@ -4,16 +4,16 @@ services:
   app:
     container_name: "dev-${USER}" # Update to the name of the app
     build:
-      context: ..
+      #context: ..
       dockerfile: Dockerfile
 
     volumes:
       #- ..:/workspace:cached
-      - /home/oj/Projects:/home/oj/Projects
+      - /home/${USER}/Projects:/home/${USER}/Projects
 
     # Set environment variables for use within the container
-    env_file:
-      - .env
+    #env_file:
+    #  - .env
 
     # Overrides default command so things don't shut down after the process ends.
     # command: python /workspace/app/app.py

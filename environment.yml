@@ -1,0 +1,19 @@
+name: devcontainer
+channels:
+  - conda-forge
+  - nodefaults
+dependencies: # (use = for version locking)
+  - black # Code formatting
+  - ipykernel # Enable jupyter notebooks
+  - mypy # Linting: static types
+  - numpy
+  - pandas
+  - pyarrow # Enable parquet format for fast dataframe save/load
+  - pydocstyle # Linting: PEP257 comment compliance
+  - pylint # Linting: PEP8 code compliance
+  - pytest # Code testing
+  - ipython
+# Uncomment if you need to also install some packages via pip (use == for version locking)
+  # - pip
+  # - pip:
+  #   - transformers
