@@ -1,0 +1,17 @@
+black
+ipykernel
+mypy # Linting: static types
+numpy
+pandas
+pyarrow # Enable parquet format for fast dataframe save/load
+pydocstyle # Linting: PEP257 comment compliance
+pylint # Linting: PEP8 code compliance
+pytest # Code testing
+ipython
+jupyterlab
+scikit-learn
+matplotlib
+python-dotenv
+
+
+

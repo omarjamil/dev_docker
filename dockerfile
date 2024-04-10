@@ -1,5 +1,4 @@
-# Use the latest Python Version as the base image
-FROM python:3.12-bookworm
+FROM condaforge/mambaforge:latest
 
 # Set timezone
 ENV TZ=Europe/London
@@ -8,7 +7,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Setup user
 ARG USERNAME=omar.jamil
 ARG USER_UID=1000
-ARG USER_GID=1000
+ARG USER_GID=$USER_UID
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
@@ -24,6 +23,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
 # removed
 RUN apt-get update \
     && apt-get install software-properties-common -y \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys A1715D88E1DF1F24 \
+    && add-apt-repository ppa:git-core/ppa -y \
+    && apt-get update \
+    && apt-get upgrade -y \
     && apt-get install openssh-client -y \
     && apt-get install curl -y \
     && apt-get install npm -y \
@@ -37,8 +40,11 @@ RUN apt-get update \
 #     && apt-get clean
 
 # Copy environment.yml to a temp location so we update the environment.
-COPY requirements.txt ./
+COPY environment.yml /tmp/conda-tmp/
+RUN mamba env create -n devcontainer -f /tmp/conda-tmp/environment.yml \
+    && rm -rf /tmp/conda-tmp \
+    && mamba clean -afy
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN echo "conda activate devcontainer" >> /home/$USERNAME/.bashrc
 
 COPY ide_setup.sh /home/$USERNAME/ 
