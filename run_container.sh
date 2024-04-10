@@ -12,7 +12,7 @@ fi
 
 if [[ "$1" == "run" ]]
 then
-  docker run -it --entrypoint bash --name dev -v /home/${USER}/Projects:/home/${USER}/Projects -u $USER dev-omar.jamil
+  docker run -it --network=host --entrypoint bash --name dev -v /home/${USER}/Projects:/home/${USER}/Projects -u $USER dev-omar.jamil
 fi
 
 if [[ "$1" == "start" ]]
