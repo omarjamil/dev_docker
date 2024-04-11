@@ -42,3 +42,5 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ide_setup.sh /home/$USERNAME/ 
+RUN bash /home/$USERNAME/ide_setup.sh /home/$USERNAME 
+RUN chown -R $USERNAME /home/$USERNAME
