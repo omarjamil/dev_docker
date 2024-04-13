@@ -12,7 +12,10 @@ fi
 
 if [[ "$1" == "run" ]]
 then
-  docker run -it --network=host --entrypoint bash --name dev -v /home/${USER}/Projects:/home/${USER}/Projects -v /mnt/dev-data:/mnt/dev-data -u $USER dev-omar.jamil
+  docker run -it --network=host --entrypoint bash --name dev -v /home/${USER}/Projects:/home/${USER}/Projects \
+    -v /mnt/dev-data:/mnt/dev-data \
+    -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent \
+    -u $USER dev-omar.jamil
 fi
 
 if [[ "$1" == "start" ]]
