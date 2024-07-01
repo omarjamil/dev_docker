@@ -5,7 +5,7 @@ export UGID=$(id -g)
 
 if [[ "$1" == "build" ]] 
 then
-  docker build -f Dockerfile -t dev-omar.jamil --build-arg USERNAME=$USER \
+  docker build -f dockerfile_pip -t dev-omar.jamil --build-arg USERNAME=$USER \
     --build-arg USER_UID=$UUID \
     --build-arg USER_GID=$UGID --no-cache . 
 fi
