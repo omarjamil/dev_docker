@@ -23,6 +23,11 @@ then
   docker start -ai dev
 fi
 
+if [[ "$1" == "term" ]]
+then
+  docker exec -ti dev bash
+fi
+
 # docker compose -f docker-compose.yml build --no-cache
 
 # Run the container
