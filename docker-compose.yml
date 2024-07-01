@@ -3,7 +3,7 @@ services:
     container_name: "dev-${USER}" # Update to the name of the app
     build:
       #context: ..
-      dockerfile: Dockerfile
+      dockerfile: dockerfile-pipx
 
     volumes:
       #- ..:/workspace:cached
