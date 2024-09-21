@@ -1,22 +1,25 @@
-# For building the container
+# For building the containr
 
-export UUID=$(id -u)
-export UGID=$(id -g)
+# export COLIMA_SSH_AUTH_SOCK=$(colima ssh eval 'echo $SSH_AUTH_SOCK')
 
 if [[ "$1" == "build" ]] 
 then
-  docker build -f dockerfile_pip -t dev-omar.jamil --build-arg USERNAME=$USER \
-    --build-arg USER_UID=$UUID \
-    --build-arg USER_GID=$UGID --no-cache . 
+  docker build -f dockerfile -t dev-oj --build-arg USERNAME=$USER \
+    --build-arg USER_UID=$(id -u) \
+    --build-arg USER_GID=$(id -g) --no-cache . 
 fi
 
 if [[ "$1" == "run" ]]
 then
-  docker run -it --network=host --entrypoint bash --name dev -v /home/${USER}/Projects:/home/${USER}/Projects \
-    -v /mnt/dev-data:/mnt/dev-data \
-    -v $SSH_AUTH_SOCK:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent \
-    -u $USER dev-omar.jamil
+  docker run -it --network=host --entrypoint bash --name dev \
+    -v /Users/${USER}/Projects:/home/${USER}/Projects \
+    -u $USER dev-oj
 fi
+
+#-v $COLIMA_SSH_AUTH_SOCK:$COLIMA_SSH_AUTH_SOCK -e SSH_AUTH_SOCK \
+# -v ${SSH_AUTH_SOCK}:/ssh-agent -e SSH_AUTH_SOCK=/ssh-agent \
+# -v $SSH_AUTH_SOCK:${SSH_AUTH_SOCK} -e SSH_AUTH_SOCK \
+# -v /run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock -e SSH_AUTH_SOCK=${SSH_AUTH_SOCK} \
 
 if [[ "$1" == "start" ]]
 then
@@ -35,5 +38,5 @@ fi
 # docker compose -f docker-compose.yml run app
 #
 # For dropping into a shell
-# docker exec -it dev-omar.jamil /bin/bash
+# docker exec -it dev-oj /bin/bash
 
