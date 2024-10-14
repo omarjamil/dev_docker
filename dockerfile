@@ -41,8 +41,8 @@ RUN apt-get update \
 #     && apt-get -y install google-chrome-stable \
 #     && apt-get clean
 
-# COPY ide_setup.sh /home/$USERNAME/ 
-COPY dev_env.sh /home/$USERNAME/
+COPY ide_setup.sh /home/$USERNAME/ 
+# COPY dev_env.sh /home/$USERNAME/
 
 # RUN bash /home/$USERNAME/ide_setup.sh /home/$USERNAME 
 RUN chown -R $USERNAME /home/$USERNAME
