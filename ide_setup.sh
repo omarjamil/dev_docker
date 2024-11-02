@@ -1,5 +1,4 @@
-# the argument needs to be the path to the home area
-cd $1
+cd $HOME 
 mkdir software
 mkdir bin
 cd software 
@@ -12,8 +11,9 @@ rm -r build/  # clear the CMake cache
 make CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$HOME/neovim"
 make install
 
-ln -s $HOME/software/neovim/bin/nvim $HOME/bin/nvim
+ln -s $HOME/neovim/bin/nvim $HOME/bin/nvim
 
+cd $HOME
 git clone -b main --single-branch https://github.com/omarjamil/ide_config.git
 echo "Follow ide config setup and add neovim to the PATH"
 

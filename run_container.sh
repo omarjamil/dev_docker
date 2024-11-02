@@ -11,7 +11,10 @@ fi
 
 if [[ "$1" == "run" ]]
 then
-  docker run -it --network=host --entrypoint bash --name dev \
+  open -a XQuartz
+  xhost +
+  docker run -it -e DISPLAY=host.docker.internal:0 \
+    --network=host --entrypoint bash --name dev \
     -v /Users/${USER}/Projects:/home/${USER}/Projects \
     -u $USER dev-oj
 fi
