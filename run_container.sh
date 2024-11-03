@@ -12,7 +12,7 @@ fi
 if [[ "$1" == "run" ]]
 then
   open -a XQuartz
-  xhost +
+  xhost +localhost
   docker run -it -e DISPLAY=host.docker.internal:0 \
     --network=host --entrypoint bash --name dev-x \
     -v /Users/${USER}/Projects:/home/${USER}/Projects \
@@ -36,7 +36,7 @@ fi
 if [[ "$1" == "start" ]]
 then
   open -a XQuartz
-  xhost +
+  xhost +localhost
   docker start -ai dev-x
 fi
 
