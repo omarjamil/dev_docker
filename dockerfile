@@ -1,5 +1,5 @@
-# Use the latest Python Version as the base image
-FROM python:3.12-bookworm
+# Use the latest ubnutu base image
+FROM ubuntu:24.04
 
 # Set timezone
 ENV TZ=Europe/London
@@ -13,7 +13,7 @@ ARG USER_ID=1000
 RUN groupadd -o -g ${GROUP_ID} $USERNAME \
     && useradd --uid ${USER_ID} --gid ${GROUP_ID} -m $USERNAME \
     && apt-get update \
-    && apt-get install -y sudo \
+    && apt-get install -y sudo adduser\
     && adduser $USERNAME sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME \

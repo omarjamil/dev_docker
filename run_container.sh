@@ -5,8 +5,8 @@
 if [[ "$1" == "build" ]] 
 then
   docker build -f dockerfile -t dev-oj --build-arg USERNAME=$USER \
-    --build-arg USER_UID=$(id -u) \
-    --build-arg USER_GID=$(id -g) --no-cache . 
+    --build-arg USER_ID=$(id -u) \
+    --build-arg GROUP_ID=$(id -g) --no-cache . 
 fi
 
 if [[ "$1" == "run" ]]
