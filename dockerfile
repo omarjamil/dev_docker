@@ -58,3 +58,4 @@ RUN chown -R $USERNAME /home/$USERNAME
 # For pixi
 # https://pixi.sh/latest/#installation
 # curl -fsSL https://pixi.sh/install.sh | bash
+# pixi global install starship
