@@ -1,5 +1,4 @@
-# the argument needs to be the path to the home area
-cd $1
+cd $HOME
 mkdir software
 mkdir bin
 cd software 
