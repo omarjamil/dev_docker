@@ -19,10 +19,29 @@ then
     -u $USER dev-oj
 fi
 
+if [[ "$1" == "run-nn" ]]
+then
+  open -a XQuartz
+  xhost +localhost
+  docker run -it -e DISPLAY=host.docker.internal:0 \
+    --network=host --entrypoint bash --name dev-x-{$2} \
+    -v /Users/${USER}/Projects:/home/${USER}/Projects \
+    -u $USER dev-oj
+fi
+
+
 if [[ "$1" == "run-nox" ]]
 then
   docker run -it \
     --network=host --entrypoint bash --name dev \
+    -v /Users/${USER}/Projects:/home/${USER}/Projects \
+    -u $USER dev-oj
+fi
+
+if [[ "$1" == "run-nox-nn" ]]
+then
+  docker run -it \
+    --network=host --entrypoint bash --name dev-${2} \
     -v /Users/${USER}/Projects:/home/${USER}/Projects \
     -u $USER dev-oj
 fi
@@ -40,10 +59,24 @@ then
   docker start -ai dev-x
 fi
 
+if [[ "$1" == "start-nn" ]]
+then
+  open -a XQuartz
+  xhost +localhost
+  docker start -ai dev-x-{$2}
+fi
+
+
 if [[ "$1" == "start-nox" ]]
 then
   docker start -ai dev
 fi
+
+if [[ "$1" == "start-nox-nn" ]]
+then
+  docker start -ai dev-{$2}
+fi
+
 
 
 if [[ "$1" == "term" ]]
@@ -51,10 +84,22 @@ then
   docker exec -ti dev-x bash
 fi
 
+if [[ "$1" == "term-nn" ]]
+then
+  docker exec -ti dev-x-{$2} bash
+fi
+
+
 if [[ "$1" == "term-nox" ]]
 then
   docker exec -ti dev bash
 fi
+
+if [[ "$1" == "term-nox-nn" ]]
+then
+  docker exec -ti dev-{$2} bash
+fi
+
 
 
 # docker compose -f docker-compose.yml build --no-cache
